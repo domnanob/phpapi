@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . '/../controllers/PetsController.php';
+include_once './../../controllers/PetsController.php';
 header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -7,7 +7,7 @@ const API = {
 
 // ---------- Segédfüggvények ----------
 const $ = (s, r = document) => r.querySelector(s);
-const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 let state = { pets: [], types: [] };
 
 function toast(text, error = false) {
@@ -19,13 +19,19 @@ function toast(text, error = false) {
   toast.t = setTimeout(() => m.style.display = 'none', 3000);
 }
 
-async function request(path, method = 'GET', body = null) {
-  const opt = { method, headers: { 'Accept': 'application/json' } };
+async function request(path, method, body = null) {
+  const opt = { 
+    method: method, headers: { 'Accept': 'application/json' } };
   if (body !== null) {
     opt.headers['Content-Type'] = 'application/json';
     opt.body = JSON.stringify(body);
   }
-  const res = await fetch(`${API.base}/${path}`, opt);
+  console.log('request', path, opt);
+  const res = await fetch(`${API.base}/${path}`, {
+    method: opt.method,
+    headers: opt.headers,
+    body: opt.body
+  });
   const text = await res.text();
   let data = null;
   try { data = text ? JSON.parse(text) : null; } catch { data = text; }
@@ -147,8 +153,13 @@ petForm.onsubmit = async e => {
   };
   const id = petForm.id.value;
   try {
-    if (id) { data.id = Number(id); await request('pets/update', API.methods.update, data); }
-    else await request('pets/create', API.methods.create, data);
+    if (id) {
+      data.id = Number(id);
+      await request('pets/update', API.methods.update, data);
+    }
+    else {
+      await request('pets/create', "POST", data);
+    }
     toast('Kisállat mentve');
     resetPetForm();
     await loadPets();
