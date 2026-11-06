@@ -1,6 +1,6 @@
 // ---------- Beállítások ----------
 const API = {
-  base: 'server',             // az api gyökere a client mappához képest: ../server ha kell
+  base: '../../phpapi/server',             // az api gyökere a client mappához képest: ../server ha kell
   imgDir: 'src/img/',         // helyi képek mappája
   methods: { create: 'POST', update: 'PUT', delete: 'DELETE' } // szükség esetén módosítható
 };

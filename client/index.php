@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kisállatok</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="./src/css/style.css">
 <style>
   
 </style>
@@ -66,7 +66,7 @@
 </main>
 <div id="msg"></div>
 
-<script src="src/js/jquery-4.0.0.min.js"></script>
-<script src="src/js/main.js"></script>
+<script src="./src/js/jquery-4.0.0.min.js"></script>
+<script src="./src/js/script.js"></script>
 </body>
 </html>
